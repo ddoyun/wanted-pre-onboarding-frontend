@@ -7,10 +7,10 @@ const PublicLayout = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (isLogin && (pathname === '/signup' || pathname === '/signin')) {
+    if (isLogin && (pathname === '/signup' || pathname === '/signin' || pathname === '/')) {
       navigate('/todo');
     }
-  }, []);
+  }, [isLogin, navigate, pathname]);
 
   return (
     <div>

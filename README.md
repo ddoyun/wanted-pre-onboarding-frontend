@@ -11,7 +11,7 @@ $ npm start
 
 ## 배포 링크
 
-[사전 과제]()
+[사전 과제](https://ddoyun.github.io/wanted-pre-onboarding-frontend);
 
 ## 라이브러리
 

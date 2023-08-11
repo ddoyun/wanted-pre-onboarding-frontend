@@ -1,6 +1,4 @@
 {
-  "homepage": "https://ddoyun.github.io/wanted-pre-onboarding-frontend",
-  "name": "wanted-pre-onboarding-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

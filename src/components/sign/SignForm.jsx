@@ -1,5 +1,5 @@
 import { React, useState, useCallback } from 'react';
-//import styled from "styled-components";
+import styled from 'styled-components';
 
 const SignForm = ({ handleSubmit, authData }) => {
   // 이메일, 비밀번호
@@ -53,23 +53,36 @@ const SignForm = ({ handleSubmit, authData }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" data-testid="email-input" value={email} onChange={confirmEmail} />
-      {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
-      <input type="password" data-testid="password-input" value={password} onChange={confirmPassword} />
-      {password.length > 0 && <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>}
-      <button type="submit" form="sign" data-testid={authData} disabled={!(isEmail && isPassword)} onClick={onSubmit}>
-        {authData === 'signup-button' ? '회원가입' : '로그인'}
-      </button>
-    </form>
+    <SignSumit>
+      <Form onSubmit={handleSubmit}>
+        <Input first type="text" data-testid="email-input" value={email} onChange={confirmEmail} />
+        {email.length > 0 && <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message>}
+        <Input type="password" data-testid="password-input" value={password} onChange={confirmPassword} />
+        {password.length > 0 && (
+          <Message className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</Message>
+        )}
+        <button type="submit" form="sign" data-testid={authData} disabled={!(isEmail && isPassword)} onClick={onSubmit}>
+          {authData === 'signup-button' ? '회원가입' : '로그인'}
+        </button>
+      </Form>
+    </SignSumit>
   );
 };
 
 export default SignForm;
 
-// const Content = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-// `;
+const SignSumit = styled.div`
+  ${({ theme }) => theme.MIXINS.flexBasic()}
+  background-color: ${({ theme }) => theme.colors.contentBg};
+`;
+
+const Form = styled.form`
+  ${({ theme }) => theme.MIXINS.flexBox('column')}
+  gap: ${({ theme }) => theme.pixelToRem(15)};
+`;
+
+const Input = styled.input`
+  border: 1px solid ${(props) => (props.first ? props.theme.colors.white : props.theme.colors.darkGray)};
+`;
+
+const Message = styled.span``;

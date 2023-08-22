@@ -16,6 +16,9 @@ const SignIn = () => {
         navigate('/todo');
       }
     } catch (error) {
+      if (error.request.status === 404) {
+        alert('해당 사용자가 존재하지 않습니다.');
+      }
       console.error(error);
     }
   };

@@ -35,7 +35,7 @@ const GlobalStyles = createGlobalStyle`
   };
   input {
     outline: none;
-    padding-left: 20px;
+    padding-left: 10px;
     border-radius: 30px;
     border : 1px solid black;
     &::placeholder {

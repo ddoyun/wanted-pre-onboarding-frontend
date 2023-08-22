@@ -4,7 +4,8 @@ const pixelToRem = (pxSize) => `${pxSize / 16}rem`;
 // 공용 폰트 사이즈
 const fontSizes = {
   title: pixelToRem(23),
-  subtitle: pixelToRem(16),
+  subTitle: pixelToRem(14),
+  pointText: pixelToRem(12),
   text: pixelToRem(11),
 };
 
@@ -13,18 +14,21 @@ const styles = {
   border: `
     border-radius: 15px;
   `,
+  button: `
+    border-radius: 50px;
+    height: 50px;
+  `,
   shadow: `
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   `,
 };
 
-// 공용 버튼
-const button = {};
-
 // 공용 색상
 const colors = {
   blue: '#566fd8',
-  black: '#000',
+  red: '#fe0000',
+  green: '#63d856',
+  black: '#67676c',
   white: '#fff',
   gray: '#e2e2e2',
   darkGray: '#606065',
@@ -76,7 +80,6 @@ const Theme = {
   pixelToRem,
   fontSizes,
   styles,
-  button,
   colors,
   MIXINS,
   media,

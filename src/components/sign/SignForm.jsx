@@ -54,17 +54,25 @@ const SignForm = ({ handleSubmit, authData }) => {
 
   return (
     <SignSumit>
+      <Title>{authData === 'signup-button' ? '회원가입' : '로그인'}</Title>
       <Form onSubmit={handleSubmit}>
-        <Input first type="text" data-testid="email-input" value={email} onChange={confirmEmail} />
-        {email.length > 0 && <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message>}
-        <Input type="password" data-testid="password-input" value={password} onChange={confirmPassword} />
-        {password.length > 0 && (
-          <Message className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</Message>
-        )}
-        <button type="submit" form="sign" data-testid={authData} disabled={!(isEmail && isPassword)} onClick={onSubmit}>
+        <InputContent>
+          <p>아이디</p>
+          <Input type="text" data-testid="email-input" value={email} onChange={confirmEmail} />
+          {email.length > 0 && <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message>}
+        </InputContent>
+        <p>비밀번호</p>
+        <InputContent>
+          <Input type="password" data-testid="password-input" value={password} onChange={confirmPassword} />
+          {password.length > 0 && (
+            <Message className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</Message>
+          )}
+        </InputContent>
+        <Button type="submit" form="sign" data-testid={authData} disabled={!(isEmail && isPassword)} onClick={onSubmit}>
           {authData === 'signup-button' ? '회원가입' : '로그인'}
-        </button>
+        </Button>
       </Form>
+      {authData === 'signup-button' ? '' : <SignUpButton href="signup">회원가입</SignUpButton>}
     </SignSumit>
   );
 };
@@ -72,17 +80,66 @@ const SignForm = ({ handleSubmit, authData }) => {
 export default SignForm;
 
 const SignSumit = styled.div`
-  ${({ theme }) => theme.MIXINS.flexBasic()}
+  ${({ theme }) => theme.MIXINS.flexBox('column', 'center', 'flex-start')}
+  ${({ theme }) => theme.MIXINS.positionCenter()};
   background-color: ${({ theme }) => theme.colors.contentBg};
+  max-width: 500px;
+  min-width: 350px;
+  width: 40vw;
+  height: 80vh;
+  ${({ theme }) => theme.styles.border};
+  ${({ theme }) => theme.styles.shadow};
+  padding: 60px 40px;
+`;
+
+const Title = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes.title};
+  font-weight: bold;
+  margin: 0 auto 60px 0;
 `;
 
 const Form = styled.form`
-  ${({ theme }) => theme.MIXINS.flexBox('column')}
-  gap: ${({ theme }) => theme.pixelToRem(15)};
+  ${({ theme }) => theme.MIXINS.flexBox('column', 'initial')}
+  gap: 10px;
+  width: 100%;
+  p {
+    font-size: ${({ theme }) => theme.fontSizes.text};
+    color: ${({ theme }) => theme.colors.black};
+  }
+`;
+
+const InputContent = styled.div`
+  margin-bottom: 15px;
+  ${({ theme }) => theme.MIXINS.flexBox('column', 'initial')}
+  gap: 10px;
 `;
 
 const Input = styled.input`
-  border: 1px solid ${(props) => (props.first ? props.theme.colors.white : props.theme.colors.darkGray)};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  height: 30px;
 `;
 
-const Message = styled.span``;
+const Button = styled.button`
+  background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.styles.button};
+  margin-top: 10px;
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.gray};
+    cursor: auto;
+  }
+`;
+
+const Message = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.text};
+  color: ${({ theme }) => theme.colors.red};
+  &.success {
+    color: ${({ theme }) => theme.colors.green};
+  }
+`;
+
+const SignUpButton = styled.a`
+  font-size: ${({ theme }) => theme.fontSizes.pointText};
+  color: ${({ theme }) => theme.colors.black};
+  margin-top: auto;
+`;

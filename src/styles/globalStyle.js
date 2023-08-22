@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
   }
  
   div, section, button{
+    font-family: "Noto Sans KR", sans-serif;
     box-sizing: border-box
   }
   h1 {
@@ -35,12 +36,11 @@ const GlobalStyles = createGlobalStyle`
   };
   input {
     outline: none;
-    padding-left: 10px;
+    padding-left: 15px;
     border-radius: 30px;
     border : 1px solid black;
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
-      font-size: 16px;
       font-weight: bold
     }
   }

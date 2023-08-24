@@ -45,8 +45,8 @@ const GlobalStyles = createGlobalStyle`
     }
   }
   ::selection {
-    color: #000;
-    background-color: var(--color-yellow);
+    color: #fff;
+    background-color: #566fd8;
   }
   strong {
     font-weight: bold;

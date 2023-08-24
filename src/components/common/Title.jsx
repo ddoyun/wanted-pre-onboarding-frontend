@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 
-export const Title = forwardRef(({ as, size, color, margin, weight, ...props }, ref) => {
+const Title = forwardRef(({ as, size, color, margin, weight, ...props }, ref) => {
   return (
     <Element
       as={as || 'div'}
@@ -12,6 +12,8 @@ export const Title = forwardRef(({ as, size, color, margin, weight, ...props }, 
     />
   );
 });
+
+export default Title;
 
 const Element = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.title};

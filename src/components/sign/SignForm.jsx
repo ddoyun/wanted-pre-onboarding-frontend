@@ -1,4 +1,7 @@
 import { React, useState, useCallback } from 'react';
+import Button from '../common/Button';
+import Title from '../common/Title';
+import { Content } from '../../styles/commonStyle';
 import styled from 'styled-components';
 
 const SignForm = ({ handleSubmit, authData }) => {
@@ -53,7 +56,7 @@ const SignForm = ({ handleSubmit, authData }) => {
   };
 
   return (
-    <SignSumit>
+    <Content>
       <Title>{authData === 'signup-button' ? '회원가입' : '로그인'}</Title>
       <Form onSubmit={handleSubmit}>
         <InputContent>
@@ -73,30 +76,11 @@ const SignForm = ({ handleSubmit, authData }) => {
         </Button>
       </Form>
       {authData === 'signup-button' ? '' : <SignUpButton href="signup">회원가입</SignUpButton>}
-    </SignSumit>
+    </Content>
   );
 };
 
 export default SignForm;
-
-const SignSumit = styled.div`
-  ${({ theme }) => theme.MIXINS.flexBox('column', 'center', 'flex-start')}
-  ${({ theme }) => theme.MIXINS.positionCenter()};
-  background-color: ${({ theme }) => theme.colors.contentBg};
-  max-width: 500px;
-  min-width: 350px;
-  width: 40vw;
-  height: 80vh;
-  ${({ theme }) => theme.styles.border};
-  ${({ theme }) => theme.styles.shadow};
-  padding: 60px 40px;
-`;
-
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.title};
-  font-weight: bold;
-  margin: 0 auto 60px 0;
-`;
 
 const Form = styled.form`
   ${({ theme }) => theme.MIXINS.flexBox('column', 'initial')}
@@ -117,17 +101,6 @@ const InputContent = styled.div`
 const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.gray};
   height: 30px;
-`;
-
-const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.blue};
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.styles.button};
-  margin-top: 10px;
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.gray};
-    cursor: auto;
-  }
 `;
 
 const Message = styled.span`

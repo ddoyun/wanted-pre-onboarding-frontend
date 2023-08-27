@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { getTodosApi, updateTodoApi } from '../../api/api';
+import { updateTodoApi } from '../../api/api';
+import Input from '../common/Input';
+import { Li, Modify, Label, NoCheck } from '../../styles/todoStyle';
+import { BsCheckCircle, BsCheck2 } from 'react-icons/bs';
+import { RiDeleteBin5Line } from 'react-icons/ri';
+import { BiSolidEdit } from 'react-icons/bi';
+import { VscChromeClose } from 'react-icons/vsc';
 
-const TodoItem = ({ todos, setTodos, todoCompleted, deleteTodo }) => {
+const TodoItem = ({ todos, getTodos, todoCompleted, deleteTodo }) => {
   const [modify, setModify] = useState(false);
   const [modifyTodoText, setModifyTodoText] = useState('');
 
@@ -21,13 +27,17 @@ const TodoItem = ({ todos, setTodos, todoCompleted, deleteTodo }) => {
       todo: modifyTodoText,
       isCompleted: todos?.isCompleted,
     };
+    if (modifyTodoText === '') {
+      alert('수정할 투두를 입력해 주세요.');
+      return;
+    }
     const res = await updateTodoApi(todos?.id, modifyTodoDate);
     try {
-      if (res.status === 200) {
+      if (res.status === 180) {
         alert('수정 완료');
         setModify(!modify);
-        const res = await getTodosApi();
-        setTodos(res.data);
+        setModifyTodoText('');
+        getTodos();
       }
     } catch (error) {
       console.log(error);
@@ -35,35 +45,69 @@ const TodoItem = ({ todos, setTodos, todoCompleted, deleteTodo }) => {
   };
 
   return (
-    <li>
+    <Li>
       {modify ? (
         <>
-          <label>
-            <input type="checkbox" onClick={() => todoCompleted(todos)} defaultChecked={todos?.isCompleted} />
-            <input data-testid="modify-input" onChange={modifyInput} defaultChecked={todos?.todo} />
-          </label>
-          <button data-testid="submit-button" onClick={() => submitModify(todos)}>
-            제출
-          </button>
-          <button data-testid="cancel-button" onClick={modifyTodo}>
-            취소
-          </button>
+          <Label>
+            <Input type="checkbox" onClick={() => todoCompleted(todos)} defaultChecked={todos?.isCompleted} />
+            {todos?.isCompleted ? (
+              <BsCheck2 color="#566fd8" size="18" title="제출" style={{ cursor: 'pointer' }} />
+            ) : (
+              <NoCheck />
+            )}
+            <Input type="text" data-testid="modify-input" onChange={modifyInput} />
+          </Label>
+          <Modify>
+            <BsCheckCircle
+              onClick={() => submitModify(todos)}
+              color="#606065"
+              size="15"
+              title="제출"
+              style={{ cursor: 'pointer' }}
+              data-testid="submit-button"
+            />
+            <VscChromeClose
+              onClick={modifyTodo}
+              color="#606065"
+              size="15"
+              title="취소"
+              style={{ cursor: 'pointer' }}
+              data-testid="cancel-button"
+            />
+          </Modify>
         </>
       ) : (
         <>
-          <label>
-            <input type="checkbox" onClick={() => todoCompleted(todos)} defaultChecked={todos?.isCompleted} />
+          <Label>
+            <Input type="checkbox" onClick={() => todoCompleted(todos)} defaultChecked={todos?.isCompleted} />
+            {todos?.isCompleted ? (
+              <BsCheck2 color="#566fd8" size="18" title="제출" style={{ cursor: 'pointer' }} />
+            ) : (
+              <NoCheck />
+            )}
             <span>{todos.todo}</span>
-          </label>
-          <button onClick={modifyTodo} data-testid="modify-button">
-            수정
-          </button>
-          <button onClick={() => deleteTodo(todos)} data-testid="delete-button">
-            삭제
-          </button>
+          </Label>
+          <Modify>
+            <BiSolidEdit
+              onClick={modifyTodo}
+              color="#606065"
+              size="15"
+              title="수정"
+              style={{ cursor: 'pointer' }}
+              data-testid="modify-button"
+            />
+            <RiDeleteBin5Line
+              onClick={() => deleteTodo(todos)}
+              color="#606065"
+              size="15"
+              title="삭제"
+              style={{ cursor: 'pointer' }}
+              data-testid="delete-button"
+            />
+          </Modify>
         </>
       )}
-    </li>
+    </Li>
   );
 };
 

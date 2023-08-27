@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { getTodosApi, createTodosApi } from '../api/api';
+import React, { useState, useEffect } from 'react';
+import { createTodosApi, getTodosApi } from '../api/api';
+import Button from '../components/common/Button';
+import Title from '../components/common/Title';
+import Input from '../components/common/Input';
 import TodoList from '../components/todos/TodoList';
+import { Content } from '../styles/commonStyle';
+import { Form } from '../styles/todoStyle';
 
 const Todo = () => {
   const [todos, setTodos] = useState([]);
@@ -45,18 +50,23 @@ const Todo = () => {
         getTodos();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={createTodo}>
-        <input data-testid="new-todo-input" onChange={todoOnchange} value={newTodo} />
-        <button data-testid="new-todo-add-button">추가</button>
-      </form>
-      <TodoList todos={todos} setTodos={setTodos} />
-    </div>
+    <Content>
+      <Title as={'h1'} margin={'0 auto 10px 0'}>
+        Todo list
+      </Title>
+      <Form onSubmit={createTodo}>
+        <Input data-testid="new-todo-input" onChange={todoOnchange} value={newTodo} />
+        <Button type="submit" onClick={createTodo} data-testid="new-todo-add-button" width={50} margin={'0'}>
+          <span className="addTodoLine"></span>
+        </Button>
+      </Form>
+      <TodoList todos={todos} getTodos={getTodos} />
+    </Content>
   );
 };
 

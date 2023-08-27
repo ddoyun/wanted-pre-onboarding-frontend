@@ -24,4 +24,23 @@ const Element = styled.button`
     background-color: ${({ theme }) => theme.colors.gray};
     cursor: auto;
   }
+  .addTodoLine {
+    ${({ theme }) => theme.MIXINS.flexBasic()}
+    position: relative;
+    &::before {
+      content: '';
+      width: 2px;
+      height: 15px;
+      background-color: #fff;
+      position: absolute;
+    }
+    &::after {
+      content: '';
+      width: 1.5px;
+      height: 15px;
+      transform: rotate(90deg);
+      background-color: #fff;
+      position: absolute;
+    }
+  }
 `;

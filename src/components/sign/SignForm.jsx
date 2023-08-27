@@ -1,8 +1,9 @@
 import { React, useState, useCallback } from 'react';
 import Button from '../common/Button';
 import Title from '../common/Title';
-import { Content } from '../../styles/commonStyle';
-import styled from 'styled-components';
+import Input from './../common/Input';
+import { Content, Message } from '../../styles/commonStyle';
+import { Form, InputContent, SignUpButton } from '../../styles/signStyle';
 
 const SignForm = ({ handleSubmit, authData }) => {
   // 이메일, 비밀번호
@@ -81,38 +82,3 @@ const SignForm = ({ handleSubmit, authData }) => {
 };
 
 export default SignForm;
-
-const Form = styled.form`
-  ${({ theme }) => theme.MIXINS.flexBox('column', 'initial')}
-  gap: 10px;
-  width: 100%;
-  p {
-    font-size: ${({ theme }) => theme.fontSizes.text};
-    color: ${({ theme }) => theme.colors.black};
-  }
-`;
-
-const InputContent = styled.div`
-  margin-bottom: 15px;
-  ${({ theme }) => theme.MIXINS.flexBox('column', 'initial')}
-  gap: 10px;
-`;
-
-const Input = styled.input`
-  border: 1px solid ${({ theme }) => theme.colors.gray};
-  height: 30px;
-`;
-
-const Message = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.text};
-  color: ${({ theme }) => theme.colors.red};
-  &.success {
-    color: ${({ theme }) => theme.colors.green};
-  }
-`;
-
-const SignUpButton = styled.a`
-  font-size: ${({ theme }) => theme.fontSizes.pointText};
-  color: ${({ theme }) => theme.colors.black};
-  margin-top: auto;
-`;

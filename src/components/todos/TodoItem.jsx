@@ -32,7 +32,6 @@ const TodoItem = ({ todos, getTodos, todoCompleted, deleteTodo }) => {
       return;
     }
     const res = await updateTodoApi(todos?.id, modifyTodoDate);
-    console.log(res);
     try {
       if (res.status === 200) {
         alert('수정 완료');

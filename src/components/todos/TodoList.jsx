@@ -1,8 +1,9 @@
 import React from 'react';
-import { updateTodoApi, getTodosApi, deleteTodoApi } from '../../api/api';
+import { updateTodoApi, deleteTodoApi } from '../../api/api';
 import TodoItem from './TodoItem';
+import { UlColumn } from '../../styles/commonStyle';
 
-const TodoList = ({ todos, setTodos }) => {
+const TodoList = ({ todos, getTodos }) => {
   // 투두 완료
   const todoCompleted = async (todos) => {
     const updateTodoData = {
@@ -13,8 +14,7 @@ const TodoList = ({ todos, setTodos }) => {
     try {
       if (res.status === 200) {
         alert('수정 완료');
-        const res = await getTodosApi();
-        setTodos(res.data);
+        getTodos();
       }
     } catch (error) {
       console.log(error);
@@ -27,8 +27,7 @@ const TodoList = ({ todos, setTodos }) => {
     try {
       if (res.status === 204) {
         alert('삭제했습니다.');
-        const res = await getTodosApi();
-        setTodos(res.data);
+        getTodos();
       }
     } catch (error) {
       console.log(error);
@@ -36,13 +35,13 @@ const TodoList = ({ todos, setTodos }) => {
   };
 
   return (
-    <ul>
+    <UlColumn>
       {todos?.length ? (
         todos.map((todos) => {
           return (
             <TodoItem
               todos={todos}
-              setTodos={setTodos}
+              getTodos={getTodos}
               todoCompleted={todoCompleted}
               deleteTodo={deleteTodo}
               key={todos.id}
@@ -52,7 +51,7 @@ const TodoList = ({ todos, setTodos }) => {
       ) : (
         <div>등록된 투두리스트가 없습니다.</div>
       )}
-    </ul>
+    </UlColumn>
   );
 };
 

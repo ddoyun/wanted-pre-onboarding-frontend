@@ -19,3 +19,17 @@ export const Title = styled.div`
   color: ${({ theme }) => theme.colors.black};
   margin: 0 auto 60px 0;
 `;
+
+export const UlColumn = styled.ul`
+  ${({ theme }) => theme.MIXINS.flexBox('column', 'center', 'initial')}
+  width: 100%;
+  gap: 15px;
+`;
+
+export const Message = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.text};
+  color: ${({ theme }) => theme.colors.red};
+  &.success {
+    color: ${({ theme }) => theme.colors.green};
+  }
+`;
